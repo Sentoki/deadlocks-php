@@ -18,13 +18,16 @@ for ($i = 1; $i <= 20; $i++) {
     $lock_1_result = $stm->execute([
         'id_from' => $from_acc,
     ]);
+    $infoStmt = $pdo->query('select txid_current(), pg_backend_pid();');
+    $info = $infoStmt->fetchAll();
+    echo "transaction id: {$info[0]['txid_current']}, process id: {$info[0]['pg_backend_pid']}\n";
     if ($lock_1_result) {
         echo "{$i}) lock 1 ok\n";
     } else {
         echo "{$i}) lock 1 failure\n";
     }
 
-    usleep(1000);
+    usleep(10000);
     $stm = $pdo->prepare('SELECT id FROM account where id=:id_to for update;');
     $lock_2_result = $stm->execute([
         'id_to' => $to_acc,
