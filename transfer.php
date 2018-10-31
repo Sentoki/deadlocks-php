@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: egor
- * Date: 17.09.16
- * Time: 14:26
- */
 
 $from_acc = $argv[1];
 $to_acc = $argv[2];
